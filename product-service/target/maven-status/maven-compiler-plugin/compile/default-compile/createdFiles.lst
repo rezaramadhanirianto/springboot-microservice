@@ -1,0 +1,10 @@
+com/rezaramadhanirianto/productservice/dto/ProductRequest$ProductRequestBuilder.class
+com/rezaramadhanirianto/productservice/dto/ProductResponse.class
+com/rezaramadhanirianto/productservice/model/Product$ProductBuilder.class
+com/rezaramadhanirianto/productservice/repository/ProductRepository.class
+com/rezaramadhanirianto/productservice/ProductServiceApplication.class
+com/rezaramadhanirianto/productservice/service/ProductService.class
+com/rezaramadhanirianto/productservice/controller/ProductController.class
+com/rezaramadhanirianto/productservice/dto/ProductResponse$ProductResponseBuilder.class
+com/rezaramadhanirianto/productservice/model/Product.class
+com/rezaramadhanirianto/productservice/dto/ProductRequest.class

@@ -1,0 +1,8 @@
+com/rezaramadhanirianto/orderservice/repository/OrderRepository.class
+com/rezaramadhanirianto/orderservice/controller/OrderController.class
+com/rezaramadhanirianto/orderservice/model/OrderLineItem.class
+com/rezaramadhanirianto/orderservice/service/OrderService.class
+com/rezaramadhanirianto/orderservice/OrderServiceApplication.class
+com/rezaramadhanirianto/orderservice/model/Order.class
+com/rezaramadhanirianto/orderservice/dto/OrderLineItemDto.class
+com/rezaramadhanirianto/orderservice/dto/OrderRequest.class

@@ -1,0 +1,8 @@
+/Users/rezaramadhanirianto/PrivateRoom/Java/microservice/ecommerce/ecommerce/order-service/src/main/java/com/rezaramadhanirianto/orderservice/repository/OrderRepository.java
+/Users/rezaramadhanirianto/PrivateRoom/Java/microservice/ecommerce/ecommerce/order-service/src/main/java/com/rezaramadhanirianto/orderservice/controller/OrderController.java
+/Users/rezaramadhanirianto/PrivateRoom/Java/microservice/ecommerce/ecommerce/order-service/src/main/java/com/rezaramadhanirianto/orderservice/model/Order.java
+/Users/rezaramadhanirianto/PrivateRoom/Java/microservice/ecommerce/ecommerce/order-service/src/main/java/com/rezaramadhanirianto/orderservice/model/OrderLineItem.java
+/Users/rezaramadhanirianto/PrivateRoom/Java/microservice/ecommerce/ecommerce/order-service/src/main/java/com/rezaramadhanirianto/orderservice/service/OrderService.java
+/Users/rezaramadhanirianto/PrivateRoom/Java/microservice/ecommerce/ecommerce/order-service/src/main/java/com/rezaramadhanirianto/orderservice/dto/OrderLineItemDto.java
+/Users/rezaramadhanirianto/PrivateRoom/Java/microservice/ecommerce/ecommerce/order-service/src/main/java/com/rezaramadhanirianto/orderservice/dto/OrderRequest.java
+/Users/rezaramadhanirianto/PrivateRoom/Java/microservice/ecommerce/ecommerce/order-service/src/main/java/com/rezaramadhanirianto/orderservice/OrderServiceApplication.java
