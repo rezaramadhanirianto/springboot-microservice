@@ -7,6 +7,8 @@ import com.rezaramadhanirianto.orderservice.model.Order;
 import com.rezaramadhanirianto.orderservice.model.OrderLineItem;
 import com.rezaramadhanirianto.orderservice.repository.OrderRepository;
 import lombok.RequiredArgsConstructor;
+import brave.Span;
+import brave.Tracer;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -22,8 +24,9 @@ public class OrderService {
 
     private final OrderRepository orderRepository;
     private final WebClient.Builder webClientBuilder;
+    private final Tracer tracer;
 
-    public void placeOrder(OrderRequest orderRequest){
+    public String placeOrder(OrderRequest orderRequest){
         var order = new Order();
         order.setOrderNumber(UUID.randomUUID().toString());
         List<OrderLineItem> orderLineItems = orderRequest.getOrderLineItemDtoList()
@@ -37,22 +40,30 @@ public class OrderService {
                 .map(OrderLineItem::getSkuCode)
                 .toList();
 
-        // call inventory service
-        // if program is in stock
-        InventoryResponse[] inventoryResponseArray = webClientBuilder.build().get()
-                .uri("http://inventory-service/api/inventory",
-                        uriBuilder -> uriBuilder.queryParam("skuCode", skuCodes).build())
-                .retrieve()
-                .bodyToMono(InventoryResponse[].class)
-                .block(); // make synchronous
 
-        boolean allProductIsInStock = Arrays.stream(inventoryResponseArray)
-                .allMatch(InventoryResponse::getIsInStock);
+        Span inventoryServiceLookup = tracer.nextSpan().name("InventoryServiceLookup");
 
-        if(allProductIsInStock){
-            orderRepository.save(order);
-        }else{
-            throw new IllegalArgumentException("Product is empty, please try again later");
+        try (Tracer.SpanInScope isLookup = tracer.withSpanInScope(inventoryServiceLookup.start())) {
+            // call inventory service
+            // if program is in stock
+            InventoryResponse[] inventoryResponseArray = webClientBuilder.build().get()
+                    .uri("http://inventory-service/api/inventory",
+                            uriBuilder -> uriBuilder.queryParam("skuCode", skuCodes).build())
+                    .retrieve()
+                    .bodyToMono(InventoryResponse[].class)
+                    .block(); // make synchronous
+
+            boolean allProductIsInStock = Arrays.stream(inventoryResponseArray)
+                    .allMatch(InventoryResponse::getIsInStock);
+
+            if(allProductIsInStock){
+                orderRepository.save(order);
+                return "Order placed successfully";
+            }else{
+                throw new IllegalArgumentException("Product is empty, please try again later");
+            }
+        } finally {
+            inventoryServiceLookup.flush();
         }
     }
 
