@@ -77,7 +77,7 @@ services:
 
 # not supported in M1 Chip
 #  api-gateway:
-#    image: saiupadhyayula007/api-gateway:latest
+#    image: rezaramadhanirianto/api-gateway:latest
 #    container_name: api-gateway
 #    pull_policy: always
 #    ports:
@@ -94,7 +94,7 @@ services:
 #  ## Product-Service Docker Compose Config
 #  product-service:
 #    container_name: product-service
-#    image: saiupadhyayula007/product-service:latest
+#    image: rezaramadhanirianto/product-service:latest
 #    pull_policy: always
 #    environment:
 #      - SPRING_PROFILES_ACTIVE=docker
@@ -106,7 +106,7 @@ services:
 #  ## Order-Service Docker Compose Config
 #  order-service:
 #    container_name: order-service
-#    image: saiupadhyayula007/order-service:latest
+#    image: rezaramadhanirianto/order-service:latest
 #    pull_policy: always
 #    environment:
 #      - SPRING_PROFILES_ACTIVE=docker
@@ -121,7 +121,7 @@ services:
 #  ## Inventory-Service Docker Compose Config
 #  inventory-service:
 #    container_name: inventory-service
-#    image: saiupadhyayula007/inventory-service:latest
+#    image: rezaramadhanirianto/inventory-service:latest
 #    pull_policy: always
 #    environment:
 #      - SPRING_PROFILES_ACTIVE=docker
@@ -134,7 +134,7 @@ services:
 #  ## Notification-Service Docker Compose Config
 #  notification-service:
 #    container_name: notification-service
-#    image: saiupadhyayula007/notification-service:latest
+#    image: rezaramadhanirianto/notification-service:latest
 #    pull_policy: always
 #    environment:
 #      - SPRING_PROFILES_ACTIVE=docker
