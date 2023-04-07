@@ -1,1 +1,4 @@
 .idea/
+/postgres-order
+/postgres-inventory
+/mongo-data

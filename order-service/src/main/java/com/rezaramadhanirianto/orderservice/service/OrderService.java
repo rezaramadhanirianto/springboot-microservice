@@ -9,6 +9,8 @@ import com.rezaramadhanirianto.orderservice.repository.OrderRepository;
 import lombok.RequiredArgsConstructor;
 import brave.Span;
 import brave.Tracer;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -20,11 +22,13 @@ import java.util.UUID;
 @Service
 @RequiredArgsConstructor
 @Transactional
+@Slf4j
 public class OrderService {
 
     private final OrderRepository orderRepository;
     private final WebClient.Builder webClientBuilder;
     private final Tracer tracer;
+    private final KafkaTemplate<String, String> kafkaTemplate;
 
     public String placeOrder(OrderRequest orderRequest){
         var order = new Order();
@@ -44,6 +48,7 @@ public class OrderService {
         Span inventoryServiceLookup = tracer.nextSpan().name("InventoryServiceLookup");
 
         try (Tracer.SpanInScope isLookup = tracer.withSpanInScope(inventoryServiceLookup.start())) {
+            inventoryServiceLookup.tag("call", "inventory-service");
             // call inventory service
             // if program is in stock
             InventoryResponse[] inventoryResponseArray = webClientBuilder.build().get()
@@ -58,6 +63,7 @@ public class OrderService {
 
             if(allProductIsInStock){
                 orderRepository.save(order);
+                kafkaTemplate.send("notificationTopic", order.getOrderNumber());
                 return "Order placed successfully";
             }else{
                 throw new IllegalArgumentException("Product is empty, please try again later");
